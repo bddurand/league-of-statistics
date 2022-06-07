@@ -1,0 +1,18 @@
+type Champion {
+  id: ID!
+  name: String!
+  title: String!
+  primaryRol: String!
+  secondaryRol: String!
+}
+
+type Query {
+  findAllChampions: [Champion]!
+  countChampions: Long!
+}
+
+type Mutation {
+  newChampion(name: String!, title: String!, primaryRol: String!, secondaryRol: String!) : Champion!
+  deleteChampion(id:ID!) : Boolean
+  updateChampionName(newName: String!, id:ID!) : Champion!
+}
