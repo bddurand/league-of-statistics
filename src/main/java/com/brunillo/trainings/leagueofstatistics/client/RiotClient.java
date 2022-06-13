@@ -16,14 +16,20 @@ import org.springframework.web.client.RestTemplate;
 public class RiotClient {
     @Autowired
     private RestTemplate restTemplate;
-    @Value("${riot.api.url}")
+    @Value("${riot.client.api.base-url}")
     private String baseUrl;
+    @Value("${riot.client.header-name}")
+    private String headerName;
+    @Value("${riot.client.token-value}")
+    private String token;
+    @Value("${riot.client.api.summoner-info}")
+    private String summonerInfo;
 
     public ResponseEntity<SummonerDTO> findSummoner(String summonerName) {
-        String url = baseUrl + "/summoner/v4/summoners/by-name/" + summonerName;
+        String url = baseUrl + summonerInfo + "/" + summonerName;
         log.info("Calling Riot API - url: " + url);
         HttpHeaders headers = new HttpHeaders();
-        headers.set("X-Riot-Token", "RGAPI-eada46ba-b1f4-4ef6-8622-ceba408f4a41");
+        headers.set(headerName, token);
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
         ResponseEntity<SummonerDTO> response = restTemplate.exchange(url, HttpMethod.GET, requestEntity, SummonerDTO.class);
         return response;

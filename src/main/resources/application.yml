@@ -1,0 +1,39 @@
+spring:
+  h2:
+    console:
+      path: "/h2"
+      enabled: true
+  datasource:
+    url: "jdbc:h2:mem:leagueOfStatistics"
+  profiles:
+    active: local
+
+graphql:
+  servlet:
+    mapping: "/graphql"
+    enabled: true
+    corsEnabled: true
+graphiql:
+  enabled: true
+  endpoint: "/graphql"
+  mapping: "graphiql"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,metrics,info,loggers,beans,mappings"
+  endpoint:
+    health:
+      show-details: always
+
+app:
+  version: 1.0.0
+
+riot:
+  client:
+    api:
+      base-url: https://la2.api.riotgames.com/lol
+      summoner-info: /summoner/v4/summoners/by-name
+    header-name: X-RIOT-TOKEN
+    token-value: RGAPI-eada46ba-b1f4-4ef6-8622-ceba408f4a41

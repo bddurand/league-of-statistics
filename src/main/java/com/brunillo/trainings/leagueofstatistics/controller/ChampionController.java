@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/champion")
+@RequestMapping("/api/v1/champion")
 @Slf4j
 public class ChampionController {
 
@@ -21,15 +21,22 @@ public class ChampionController {
 
     @PostMapping(path = "/new")
     public ResponseEntity create(@RequestBody ChampionRequest championRequest) {
-        log.info("New champ");
+        log.info("Create new champion with data: " + championRequest.toString());
         service.createChampion(championRequest);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 
-    @GetMapping(path = "/get/all")
+    @GetMapping
     public ResponseEntity<List<Champion>> getAll(){
-        log.info("Get all champs");
+        log.info("Get all champions");
         List<Champion> list = service.findAll();
+        return new ResponseEntity(list, HttpStatus.OK);
+    }
+
+    @GetMapping("/{name}")
+    public ResponseEntity<List<Champion>> findByName(@PathVariable String name){
+        log.info("Find champions by name" + name);
+        List<Champion> list = service.findByName(name.toUpperCase());
         return new ResponseEntity(list, HttpStatus.OK);
     }
 }
