@@ -17,7 +17,7 @@ public class Query implements GraphQLQueryResolver {
         return repository.findAll();
     }
 
-    public long countChampions() {
+    public Long countChampions() {
         return repository.count();
     }
 }

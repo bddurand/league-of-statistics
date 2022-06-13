@@ -27,7 +27,7 @@ public class Mutation implements GraphQLMutationResolver {
         return c;
     }
 
-    public boolean deleteChampion(Long id) {
+    public Boolean deleteChampion(Long id) {
         repository.deleteById(id);
         return true;
     }
